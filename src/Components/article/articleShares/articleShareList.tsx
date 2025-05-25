@@ -1,59 +1,59 @@
 import { useEffect, useState } from "react";
 import { MdPersonAddDisabled } from "react-icons/md";
-import { IRessourcePartage } from "../../../types/RessourcePartage";
+import { IarticlePartage } from "../../../types/articlePartage";
 import { del, get } from "../../../api/apiClient";
 import { ApiResponse } from "../../../api/ApiResponse";
 import Button from "../../Divers/Button";
 import ConfirmModal from "../../Divers/ConfirmModal";
 import Toast from "../../Divers/Toast";
 
-interface ShareRessourceListProps {
+interface SharearticleListProps {
   refreshPartages: boolean;
-  ressource_id: number;
+  article_id: number;
 }
 
-const RessourceShareList = (props: ShareRessourceListProps) => {
+const articleShareList = (props: SharearticleListProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Liste de tous les partages
-  const [ressourcePartages, setRessourcePartages] = useState<
-    IRessourcePartage[]
+  const [articlePartages, setarticlePartages] = useState<
+    IarticlePartage[]
   >([]);
   const [selectedPartage, setSelectedPartage] =
-    useState<IRessourcePartage | null>(null);
+    useState<IarticlePartage | null>(null);
 
-  const getRessourcePartages = async () => {
+  const getarticlePartages = async () => {
     setIsLoading(true);
-    const response = await get<ApiResponse<IRessourcePartage[]>>(
-      "ressource_partages?ressource_id=" + props.ressource_id
+    const response = await get<ApiResponse<IarticlePartage[]>>(
+      "article_partages?article_id=" + props.article_id
     );
     if (response?.status && response.data) {
-      setRessourcePartages(response.data);
+      setarticlePartages(response.data);
     }
     setIsLoading(false);
   };
 
   //Mise à jour de la liste
   useEffect(() => {
-    getRessourcePartages();
+    getarticlePartages();
   }, [props.refreshPartages]);
 
   // Modal confirmation suppression
   const [modalConfirmVisible, setModalConfirmVisible] = useState(false);
   const handleConfirmation = (confirmed: boolean) => {
     if (confirmed && selectedPartage) {
-      deleteRessource(selectedPartage);
+      deletearticle(selectedPartage);
     }
     setModalConfirmVisible(false);
   };
 
-  // Supprimer une ressource
-  const deleteRessource = async (selectedPartage: IRessourcePartage) => {
+  // Supprimer une article
+  const deletearticle = async (selectedPartage: IarticlePartage) => {
     const response = await del<ApiResponse<null>>(
-      `ressource_partages/${selectedPartage.id}`
+      `article_partages/${selectedPartage.id}`
     );
     if (response?.status) {
-      getRessourcePartages();
+      getarticlePartages();
     } else {
       setToastMessage("Erreur lors de la suppression du partage");
     }
@@ -69,7 +69,7 @@ const RessourceShareList = (props: ShareRessourceListProps) => {
         <div className="text-center text-gray-500 text-sm py-4">
           Chargement des partages...
         </div>
-      ) : ressourcePartages.length > 0 ? (
+      ) : articlePartages.length > 0 ? (
         // Tableau si des partages existent
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -93,7 +93,7 @@ const RessourceShareList = (props: ShareRessourceListProps) => {
               </tr>
             </thead>
             <tbody>
-              {ressourcePartages.map((partage) => (
+              {articlePartages.map((partage) => (
                 <tr
                   key={partage.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -115,7 +115,7 @@ const RessourceShareList = (props: ShareRessourceListProps) => {
                       icon={<MdPersonAddDisabled size={20} />}
                       label=""
                       onClick={() => {
-                        if (partage.destinataire.id && partage.ressource.id) {
+                        if (partage.destinataire.id && partage.article.id) {
                           setSelectedPartage(partage);
                           setModalConfirmVisible(true);
                         }
@@ -130,7 +130,7 @@ const RessourceShareList = (props: ShareRessourceListProps) => {
       ) : (
         // Si aucun partage
         <div className="text-center text-gray-500 text-sm py-4">
-          Aucun partage pour cette ressource.
+          Aucun partage pour cette article.
         </div>
       )}
 
@@ -150,4 +150,4 @@ const RessourceShareList = (props: ShareRessourceListProps) => {
   );
 };
 
-export default RessourceShareList;
+export default articleShareList;

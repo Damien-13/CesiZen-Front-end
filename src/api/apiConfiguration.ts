@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const api = axios.create({
 
-  baseURL: 'http://resources-relationnelles.test/api/', //DAM
+  baseURL: 'http://cesizen-back-end.test/api/', //DAM
   
 
   headers: {

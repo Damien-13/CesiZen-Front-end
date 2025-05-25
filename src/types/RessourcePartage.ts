@@ -1,9 +1,9 @@
 
-import { IRessource } from "./Ressource";
+import { Iarticle } from "./article";
 import { IUser } from "./User";
 
-export interface IRessourcePartage {
+export interface IarticlePartage {
     id: number;
-    ressource: IRessource
+    article: Iarticle
     destinataire: IUser;
 }

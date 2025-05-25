@@ -4,7 +4,7 @@ import Footer from "./Components/LayoutItems/Footer";
 import Header from "./Components/LayoutItems/Header";
 import Navbar from "./Components/LayoutItems/Navbar";
 import FeedContainer from "./Components/LayoutItems/FeedContainer.tsx";
-import NewResourceLayout from "./Components/LayoutItems/NewResourceLayout.tsx";
+import NewarticleLayout from "./Components/LayoutItems/NewarticleLayout.tsx";
 import ProfileLayout from "./Components/LayoutItems/ProfileLayout.tsx";
 import AdminLayout from "./Components/LayoutItems/AdminLayout.tsx";
 import { useState } from "react";
@@ -25,7 +25,7 @@ function App() {
             case 'home':
                 return <FeedContainer/>;
             case 'new':
-                return isLoggedIn ? <FeedContainer newRessource={true}/> : <AuthPage/>;
+                return isLoggedIn ? <FeedContainer newarticle={true}/> : <AuthPage/>;
             case 'profile':
                 return isLoggedIn ? <ProfileLayout/> : <AuthPage/>;
             case 'admin':

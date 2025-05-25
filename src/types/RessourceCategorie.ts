@@ -1,5 +1,5 @@
-export interface IRessourceCategorie {
+export interface IarticleCategorie {
     id: number;
-    lib_ressource_categorie: string;
+    lib_article_categorie: string;
     visible: boolean;
 }

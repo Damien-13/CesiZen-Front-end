@@ -3,28 +3,28 @@ import Button from "../Divers/Button";
 import { FaPlus } from "react-icons/fa";
 import Modal from "../Divers/Modal";
 import Toast from "../Divers/Toast";
-import RessourcesAdminList from "./RessourcesAdminList";
-import RessourceForm from "./RessourceForm";
-import { IRessource } from "../../types/Ressource";
-import { IRessourceCategorie } from "../../types/RessourceCategorie";
+import articlesAdminList from "./articlesAdminList";
+import articleForm from "./articleForm";
+import { Iarticle } from "../../types/article";
+import { IarticleCategorie } from "../../types/articleCategorie";
 import { get } from "../../api/apiClient";
 import { ApiResponse } from "../../api/ApiResponse";
 import { IRelationType } from "../../types/RelationType";
 import { useUser } from "../../contexts/AuthContext";
 
-interface ManageRessourceProps {
+interface ManagearticleProps {
   autoShow?: boolean;
 }
 
-const ManageRessources = ({autoShow = false}:ManageRessourceProps) => {
+const Managearticles = ({autoShow = false}:ManagearticleProps) => {
   const { user } = useUser();
 
-  const [ressource, setRessource] = useState<IRessource | null>(null);
+  const [article, setarticle] = useState<Iarticle | null>(null);
   const [modalFormVisible, setModalFormVisible] = useState(false);
   const [toastCreationMessage, setToastCreationMessage] = useState<string | null>(null);
   const [refresh, setRefresh] = useState(false);
 
-  const [allCategorieTypes, setCategories] = useState<IRessourceCategorie[]>([]);
+  const [allCategorieTypes, setCategories] = useState<IarticleCategorie[]>([]);
   const [allRelationTypes, setRelationTypes] = useState<IRelationType[]>([]);
 
   useEffect(() => {
@@ -36,8 +36,8 @@ const ManageRessources = ({autoShow = false}:ManageRessourceProps) => {
   const triggerRefresh = () => setRefresh((prev) => !prev);
 
   const getAllCategories = async (visible?: boolean) => {
-    const response = await get<ApiResponse<IRessourceCategorie[]>>(
-      "ressource_categories" + "?visible=" + visible
+    const response = await get<ApiResponse<IarticleCategorie[]>>(
+      "article_categories" + "?visible=" + visible
     );
     if (response?.status && response.data) {
       setCategories(response.data);
@@ -64,7 +64,7 @@ const ManageRessources = ({autoShow = false}:ManageRessourceProps) => {
       return;
     }
 
-    setRessource({
+    setarticle({
       id: 0,
       titre: "",
       description: "",
@@ -74,14 +74,14 @@ const ManageRessources = ({autoShow = false}:ManageRessourceProps) => {
       valide: false,
       created_at: "",
       user: { ...user },
-      ressource_categorie: {
+      article_categorie: {
         id: 0,
-        lib_ressource_categorie: "",
+        lib_article_categorie: "",
         visible: false,
       },
-      ressource_type: {
+      article_type: {
         id: 1,
-        lib_ressource_type: "Texte",
+        lib_article_type: "Texte",
         visible: true,
       },
       relation_type: {
@@ -98,24 +98,24 @@ const ManageRessources = ({autoShow = false}:ManageRessourceProps) => {
     <>
       <div className={autoShow && 'hidden'}>
           <h3 className="text-3xl font-bold dark:text-white mt-4 mb-5">
-            Gestion des ressources
+            Gestion des articles
           </h3>
 
           <Button icon={<FaPlus size={20} />} onClick={handleAddClick} />
 
           <div className="mt-4">
-            {user && <RessourcesAdminList refreshRessources={refresh} user={user} />}
+            {user && <articlesAdminList refresharticles={refresh} user={user} />}
           </div>
       </div>
-      {modalFormVisible && ressource && (
+      {modalFormVisible && article && (
         <Modal
           isOpen={modalFormVisible}
           onClose={() => setModalFormVisible(false)}
           dismissable
           position="center"
         >
-          <RessourceForm
-            ressource={ressource}
+          <articleForm
+            article={article}
             onSubmit={(success) => {
               if (success) {
                 setModalFormVisible(false);
@@ -138,4 +138,4 @@ const ManageRessources = ({autoShow = false}:ManageRessourceProps) => {
   );
 };
 
-export default ManageRessources;
+export default Managearticles;

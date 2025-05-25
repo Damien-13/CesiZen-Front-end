@@ -1,5 +1,5 @@
-export interface IRessourceType {
+export interface IarticleType {
     id: number;
-    lib_ressource_type: string;
+    lib_article_type: string;
     visible: boolean;
 }

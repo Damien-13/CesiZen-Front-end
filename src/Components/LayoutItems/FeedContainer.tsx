@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import ResourceCard from "../Ressource/ResourceCard.tsx";
-import { IRessource } from "../../types/Ressource.ts";
+import articleCard from "../article/articleCard.tsx";
+import { Iarticle } from "../../types/article.ts";
 import { ApiResponse } from "../../api/ApiResponse.ts";
 import { get } from "../../api/apiClient";
 import { RxReset } from "react-icons/rx";
@@ -13,44 +13,44 @@ import SearchInput from "../Divers/SearchBar/SearchInput.tsx";
 import SearchSelectBox from "../Divers/SearchBar/SearchSelectBox.tsx";
 import { ISelectBoxOption } from "../../types/SelectBoxOption.ts";
 import { IRelationType } from "../../types/RelationType.ts";
-import { IRessourceCategorie } from "../../types/RessourceCategorie.ts";
-import RessourceDetail from "../Ressource/RessourceDetail.tsx";
+import { IarticleCategorie } from "../../types/articleCategorie.ts";
+import articleDetail from "../article/articleDetail.tsx";
 import { FaBackward } from "react-icons/fa";
-import ManageRessources from "../Ressource/ManageRessources.tsx";
+import Managearticles from "../article/Managearticle.tsx";
 import { useUser } from "../../contexts/AuthContext.tsx";
 
 interface FeedContainerProps {
-  newRessource?: boolean
+  newarticle?: boolean
 }
 
-const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
+const FeedContainer = ({newarticle = false}: FeedContainerProps) => {
   const { user } = useUser();
   const userId = user?.id ?? 0;
 
-  const [ressources, setRessources] = useState<IRessource[]>([]);
+  const [articles, setarticles] = useState<Iarticle[]>([]);
 
-  const getRessources = async () => {
-    const response = await get<ApiResponse<IRessource[]>>(
-      `ressources?valide=true&catalogue=true&user_id=${userId}`
+  const getarticles = async () => {
+    const response = await get<ApiResponse<Iarticle[]>>(
+      `articles?valide=true&catalogue=true&user_id=${userId}`
     );
     if (response?.status && response.data) {
-      setRessources(response.data);
+      setarticles(response.data);
     }
   };
 
   useEffect(() => {
-    getRessources();
+    getarticles();
   }, []);
 
-  //Tri des ressources
+  //Tri des articles
   const [sortByTitleAsc, setSortByTitleAsc] = useState(true);
 
   // //Récupération de toutes les catégories
-  const [allCategories, setCategories] = useState<IRessourceCategorie[]>([]);
+  const [allCategories, setCategories] = useState<IarticleCategorie[]>([]);
 
   const getAllCategories = async () => {
-    const response = await get<ApiResponse<IRessourceCategorie[]>>(
-      "ressource_categories" + "?visible=" + true
+    const response = await get<ApiResponse<IarticleCategorie[]>>(
+      "article_categories" + "?visible=" + true
     );
     if (response?.status && response.data) {
       setCategories(response.data);
@@ -75,8 +75,8 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
     getAllRelationTypes();
   }, []);
 
-  // Filtrer ressources
-  const [searchTitreRessource, setSearchTitreRessource] = useState("");
+  // Filtrer articles
+  const [searchTitrearticle, setSearchTitrearticle] = useState("");
   const [searchCategorie, setSearchCategorie] = useState("");
   const [searchRelationType, setSearchRelationType] = useState("");
   const [searchRestreint, setsearchRestreint] = useState("-1");
@@ -87,8 +87,8 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
     const { name, value } = e.target;
 
     if (name === "search_titre") {
-      setSearchTitreRessource(value);
-    } else if (name === "search_ressource_categorie") {
+      setSearchTitrearticle(value);
+    } else if (name === "search_article_categorie") {
       setSearchCategorie(value);
     } else if (name === "search_relation_type") {
       setSearchRelationType(value);
@@ -100,7 +100,7 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
   const categorieOptions: ISelectBoxOption[] = [
     { label: "Toutes les catégories", value: "0" },
     ...allCategories.map((categorie) => ({
-      label: categorie.lib_ressource_categorie,
+      label: categorie.lib_article_categorie,
       value: String(categorie.id),
     })),
   ];
@@ -113,12 +113,12 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
     })),
   ];
 
-  const filteredRessources = ressources
+  const filteredarticles = articles
     .filter(
       (ress) =>
-        ress.titre.toLowerCase().includes(searchTitreRessource.toLowerCase()) &&
+        ress.titre.toLowerCase().includes(searchTitrearticle.toLowerCase()) &&
         (!searchCategorie ||
-          String(ress.ressource_categorie.id) === searchCategorie) &&
+          String(ress.article_categorie.id) === searchCategorie) &&
         (!searchRelationType ||
           String(ress.relation_type.id) === searchRelationType) &&
         (searchRestreint === "-1" ||
@@ -139,36 +139,36 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
   ];
 
   const resetFilters = () => {
-    setSearchTitreRessource("");
+    setSearchTitrearticle("");
     setSearchCategorie("");
     setSearchRelationType("");
     setsearchRestreint("-1");
   };
 
-  //Détail d'une ressource
-  const [selectedRessource, setSelectedRessource] = useState<IRessource | null>(
+  //Détail d'une article
+  const [selectedarticle, setSelectedarticle] = useState<Iarticle | null>(
     null
   );
 
-  const handleConsulter = (ressource: IRessource) => {
-    setSelectedRessource(ressource);
+  const handleConsulter = (article: Iarticle) => {
+    setSelectedarticle(article);
   };
 
   const handleRetour = () => {
-    setSelectedRessource(null);
+    setSelectedarticle(null);
   };
 
   return (
     <>
-      {selectedRessource ? (
+      {selectedarticle ? (
         <div className="p-4">
-          <RessourceDetail ressource={selectedRessource} />
+          <articleDetail article={selectedarticle} />
 
           <div className="mt-6 flex justify-center">
             <Button
               color="gray"
               onClick={handleRetour}
-              label="Retour liste ressources"
+              label="Retour liste articles"
               icon={<FaBackward />}
             />
           </div>
@@ -181,13 +181,13 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
               <SearchInput
                 placeholder="Chercher par titre"
                 onChange={handleSearchChange}
-                value={searchTitreRessource}
+                value={searchTitrearticle}
                 name="search_titre"
               />
               <SearchSelectBox
                 onChange={handleSearchChange}
                 value={searchCategorie}
-                name="search_ressource_categorie"
+                name="search_article_categorie"
                 options={categorieOptions}
               />
               <SearchSelectBox
@@ -221,20 +221,20 @@ const FeedContainer = ({newRessource = false}: FeedContainerProps) => {
             </div>
           </div>
 
-          {/* Cartes de ressources */}
+          {/* Cartes de articles */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRessources.map((ressource, index) => (
-              <ResourceCard
-                key={ressource.id || index}
+            {filteredarticles.map((article, index) => (
+              <articleCard
+                key={article.id || index}
                 index={index}
-                ressource={ressource}
-                onConsulter={() => handleConsulter(ressource)}
+                article={article}
+                onConsulter={() => handleConsulter(article)}
               />
             ))}
           </div>
         </>
       )}
-      {newRessource && <ManageRessources autoShow={newRessource}/>}
+      {newarticle && <Managearticles autoShow={newarticle}/>}
     </>
   );
 };

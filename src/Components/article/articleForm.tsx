@@ -5,11 +5,11 @@ import { FaSave } from "react-icons/fa";
 import CheckBox from "../Form/CheckBox";
 import { post, put } from "../../api/apiClient";
 import { ApiResponse } from "../../api/ApiResponse";
-import { IRessource } from "../../types/Ressource";
+import { Iarticle } from "../../types/article";
 import TextArea from "../Form/TextArea";
 import { IUser } from "../../types/User";
 import { IRelationType } from "../../types/RelationType";
-import { IRessourceCategorie } from "../../types/RessourceCategorie";
+import { IarticleCategorie } from "../../types/articleCategorie";
 import { SelectBox } from "../Form/SelectBox";
 import { formatStringDate } from "../../services/utils";
 import { ISelectBoxOption } from "../../types/SelectBoxOption";
@@ -18,36 +18,36 @@ interface CategoryFormProps {
   onSubmit: (success: boolean) => void;
   user: IUser;
   relationTypes: IRelationType[];
-  categoriesTypes: IRessourceCategorie[];
-  ressource: IRessource;
+  categoriesTypes: IarticleCategorie[];
+  article: Iarticle;
 }
 
-const RessourceForm = (props: CategoryFormProps) => {
+const articleForm = (props: CategoryFormProps) => {
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
 
-  const ressourceInput = {
-    id: props.ressource?.id || 0,
-    titre: props.ressource?.titre || "",
-    description: props.ressource?.description || "",
-    nom_fichier: props.ressource?.nom_fichier || "",
-    restreint: props.ressource?.restreint || false,
-    url: props.ressource?.url || "",
-    valide: props.ressource?.valide || false,
-    user_id: props.ressource?.user.id || 0,
-    ressource_categorie_id: props.ressource?.ressource_categorie.id || 0,
-    ressource_type_id: props.ressource?.ressource_type.id || 1,
-    relation_type_id: props.ressource?.relation_type.id || 0,
+  const articleInput = {
+    id: props.article?.id || 0,
+    titre: props.article?.titre || "",
+    description: props.article?.description || "",
+    nom_fichier: props.article?.nom_fichier || "",
+    restreint: props.article?.restreint || false,
+    url: props.article?.url || "",
+    valide: props.article?.valide || false,
+    user_id: props.article?.user.id || 0,
+    article_categorie_id: props.article?.article_categorie.id || 0,
+    article_type_id: props.article?.article_type.id || 1,
+    relation_type_id: props.article?.relation_type.id || 0,
   };
 
   const [formData, setFormData] = useState({
-    ...ressourceInput,
+    ...articleInput,
   });
 
   const categorieOptions: ISelectBoxOption[] = [
     { label: "Sélectionner une catégorie", value: "0" },
     ...props.categoriesTypes.map((categorie) => ({
-      label: categorie.lib_ressource_categorie,
+      label: categorie.lib_article_categorie,
       value: String(categorie.id),
     })),
   ];
@@ -80,7 +80,7 @@ const RessourceForm = (props: CategoryFormProps) => {
         return "Le format d'URL n'est pas valide.";
       }
     }
-    if (name === "ressource_categorie_id") {
+    if (name === "article_categorie_id") {
       if (Number(value) === 0) return "La catégorie est requise.";
     }
     if (name === "relation_type_id") {
@@ -112,9 +112,9 @@ const RessourceForm = (props: CategoryFormProps) => {
     errors.titre = validateField("titre", formData.titre);
     errors.description = validateField("description", formData.description);
     errors.url = validateField("url", formData.url);
-    errors.ressource_categorie_id = validateField(
-      "ressource_categorie_id",
-      String(formData.ressource_categorie_id)
+    errors.article_categorie_id = validateField(
+      "article_categorie_id",
+      String(formData.article_categorie_id)
     );
     errors.relation_type_id = validateField(
       "relation_type_id",
@@ -137,20 +137,20 @@ const RessourceForm = (props: CategoryFormProps) => {
       url: formData.url ?? "",
       valide: formData.valide,
       user_id: formData.user_id,
-      ressource_categorie_id: Number(formData.ressource_categorie_id),
-      ressource_type_id: formData.ressource_type_id,
+      article_categorie_id: Number(formData.article_categorie_id),
+      article_type_id: formData.article_type_id,
       relation_type_id: Number(formData.relation_type_id),
     };
 
     let response;
-    if (props.ressource.id === 0) {
-      response = await post<typeof payload, ApiResponse<IRessource>>(
-        "ressources",
+    if (props.article.id === 0) {
+      response = await post<typeof payload, ApiResponse<Iarticle>>(
+        "articles",
         payload
       );
     } else {
-      response = await put<typeof payload, ApiResponse<IRessource>>(
-        `ressources/${props.ressource.id}`,
+      response = await put<typeof payload, ApiResponse<Iarticle>>(
+        `articles/${props.article.id}`,
         payload
       );
     }
@@ -163,8 +163,8 @@ const RessourceForm = (props: CategoryFormProps) => {
     !!validateField("description", formData.description) ||
     !!validateField("url", formData.url) ||
     !!validateField(
-      "ressource_categorie_id",
-      String(formData.ressource_categorie_id)
+      "article_categorie_id",
+      String(formData.article_categorie_id)
     ) ||
     !!validateField("relation_type_id", String(formData.relation_type_id));
 
@@ -173,21 +173,21 @@ const RessourceForm = (props: CategoryFormProps) => {
       {/* Header */}
       <div className="flex items-center justify-between p-4 md:p-5 border-b bg-gray-600rounded-t dark:border-gray-600 border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {props.ressource.id && props.ressource.id !== 0
+          {props.article.id && props.article.id !== 0
             ? "Modifier"
             : "Créer"}{" "}
-          ressource
+          article
         </h3>
       </div>
 
       {/* Body */}
       <div className="p-4 md:p-5 mt-1">
         <div className="grid gap-1 mb-4 grid-cols-2">
-          {props.ressource.id !== 0 && (
+          {props.article.id !== 0 && (
             <div className="col-span-2 text-left mb-6 text-sm italic">
               <span>
-                Créée par {props.ressource.user.pseudo}, le{" "}
-                {formatStringDate(props.ressource.created_at)}
+                Créée par {props.article.user.pseudo}, le{" "}
+                {formatStringDate(props.article.created_at)}
               </span>
             </div>
           )}
@@ -196,15 +196,15 @@ const RessourceForm = (props: CategoryFormProps) => {
             <SelectBox
               options={categorieOptions}
               label="Catégorie"
-              value={String(formData.ressource_categorie_id)}
-              name="ressource_categorie_id"
+              value={String(formData.article_categorie_id)}
+              name="article_categorie_id"
               onChange={handleFormChange}
-              error={!!fieldErrors.ressource_categorie_id}
+              error={!!fieldErrors.article_categorie_id}
               required={true}
             />
-            {fieldErrors.ressource_categorie_id && (
+            {fieldErrors.article_categorie_id && (
               <p className="text-red-500 text-sm">
-                {fieldErrors.ressource_categorie_id}
+                {fieldErrors.article_categorie_id}
               </p>
             )}
           </div>
@@ -247,7 +247,7 @@ const RessourceForm = (props: CategoryFormProps) => {
               value={formData.description}
               onChange={handleFormChange}
               placeholder="Écrire le contenu ici ..."
-              label="Contenu de la ressource"
+              label="Contenu de la article"
               required={true}
               maxLength={1000}
               rows={20}
@@ -309,4 +309,4 @@ const RessourceForm = (props: CategoryFormProps) => {
   );
 };
 
-export default RessourceForm;
+export default articleForm;

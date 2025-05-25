@@ -1,20 +1,20 @@
 import FloatingInput from "../../Form/FloatingInput";
-import { IRessource } from "../../../types/Ressource";
+import { Iarticle } from "../../../types/article";
 import Button from "../../Divers/Button";
 import { IUser } from "../../../types/User";
 import { useState, ChangeEvent } from "react";
 import { post } from "../../../api/apiClient";
 import { ApiResponse } from "../../../api/ApiResponse";
-import { IRessourcePartage } from "../../../types/RessourcePartage";
+import { IarticlePartage } from "../../../types/articlePartage";
 import { MdPersonAddAlt1 } from "react-icons/md";
 
-interface AddRessourceShareProps {
-  ressource: IRessource;
+interface AddarticleShareProps {
+  article: Iarticle;
   user: IUser;
   onSubmit: (success: boolean) => void;
 }
 
-const AddRessourceShare = (props: AddRessourceShareProps) => {
+const AddarticleShare = (props: AddarticleShareProps) => {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
@@ -60,18 +60,18 @@ const AddRessourceShare = (props: AddRessourceShareProps) => {
     //Enregistrement des données
     setError("");
     const payload = {
-      ressource_id: props.ressource.id,
+      article_id: props.article.id,
       email_destinataire: formData.email_destinataire.trim(),
     };
 
-    const response = await post<typeof payload, ApiResponse<IRessourcePartage>>(
-      "ressource_partages",
+    const response = await post<typeof payload, ApiResponse<IarticlePartage>>(
+      "article_partages",
       payload
     );
 
     if (!response?.status) {
       setError(
-        "Erreur lors de l'ajout du partage : l'email doit correspondre à un compte utilisateur actif ou ne pas figurer dans les partages de cette ressource."
+        "Erreur lors de l'ajout du partage : l'email doit correspondre à un compte utilisateur actif ou ne pas figurer dans les partages de cette article."
       );
     }
 
@@ -104,4 +104,4 @@ const AddRessourceShare = (props: AddRessourceShareProps) => {
   );
 };
 
-export default AddRessourceShare;
+export default AddarticleShare;

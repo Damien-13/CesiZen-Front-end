@@ -1,5 +1,5 @@
 import ManageCategories from "../Categorie/ManageCategories.tsx";
-import ManageRessources from "../Ressource/ManageRessources.tsx";
+import Managearticles from "../article/Managearticle.tsx";
 import AdminUserManager from "../Utilisateur/AdminUserManager.tsx";
 
 const AdminLayout = ({adminOption}) => {
@@ -8,8 +8,8 @@ const AdminLayout = ({adminOption}) => {
         switch (adminOption) {
             case 'categories':
                 return <ManageCategories/>;
-            case 'ressources':
-                return <ManageRessources/>;
+            case 'articles':
+                return <Managearticles/>;
             case 'users':
                 return <AdminUserManager/>;
             default:
