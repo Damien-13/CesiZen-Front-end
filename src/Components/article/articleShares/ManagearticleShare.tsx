@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Iarticle } from "../../../types/article";
 import { IUser } from "../../../types/User";
 import AddarticleShare from "./AddarticleShare";
-import articleShareList from "./articleShareList";
+import ArticleShareList from "./articleShareList";
 
 interface ShareArticleFormProps {
   article: Iarticle;
@@ -37,7 +37,7 @@ const ManagearticleShare = (props: ShareArticleFormProps) => {
           />
         </div>
         <div>
-          <articleShareList
+          <ArticleShareList
             refreshPartages={refreshPartages}
             article_id={props.article.id}
           />

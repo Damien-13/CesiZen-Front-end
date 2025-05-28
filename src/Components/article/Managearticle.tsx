@@ -96,7 +96,7 @@ const Managearticles = ({autoShow = false}:ManagearticleProps) => {
 
   return (
     <>
-      <div className={autoShow && 'hidden'}>
+      <div className={autoShow ? 'hidden' : undefined}>
           <h3 className="text-3xl font-bold dark:text-white mt-4 mb-5">
             Gestion des articles
           </h3>

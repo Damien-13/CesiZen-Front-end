@@ -12,7 +12,7 @@ interface SharearticleListProps {
   article_id: number;
 }
 
-const articleShareList = (props: SharearticleListProps) => {
+const ArticleShareList = (props: SharearticleListProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Liste de tous les partages
@@ -150,4 +150,4 @@ const articleShareList = (props: SharearticleListProps) => {
   );
 };
 
-export default articleShareList;
+export default ArticleShareList;
