@@ -14,7 +14,7 @@ import SearchSelectBox from "../Divers/SearchBar/SearchSelectBox.tsx";
 import { ISelectBoxOption } from "../../types/SelectBoxOption.ts";
 import { IRelationType } from "../../types/RelationType.ts";
 import { IarticleCategorie } from "../../types/articleCategorie.ts";
-import articleDetail from "../article/articleDetail.tsx";
+import ArticleDetail from "../article/ArticleDetail.tsx";
 import { FaBackward } from "react-icons/fa";
 import Managearticles from "../article/Managearticle.tsx";
 import { useUser } from "../../contexts/AuthContext.tsx";
@@ -162,7 +162,7 @@ const FeedContainer = ({newarticle = false}: FeedContainerProps) => {
     <>
       {selectedarticle ? (
         <div className="p-4">
-          <articleDetail article={selectedarticle} />
+          <ArticleDetail article={selectedarticle} />
 
           <div className="mt-6 flex justify-center">
             <Button

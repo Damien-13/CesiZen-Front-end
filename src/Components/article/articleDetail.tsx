@@ -8,12 +8,12 @@ import { useState } from "react";
 import Modal from "../Divers/Modal.tsx";
 import ManagearticleShare from "./articleShares/ManagearticleShare.tsx";
 
-interface articleDetailProps {
+interface ArticleDetailProps {
   article: Iarticle;
   onRefresh?: () => void;
 }
 
-const articleDetail = ({ article }: articleDetailProps) => {
+const ArticleDetail = ({ article }: ArticleDetailProps) => {
   const { user } = useUser();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -101,4 +101,4 @@ const articleDetail = ({ article }: articleDetailProps) => {
   );
 };
 
-export default articleDetail;
+export default ArticleDetail;
