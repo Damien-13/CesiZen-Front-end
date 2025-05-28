@@ -3,13 +3,13 @@ import FloatingInput from "../Form/FloatingInput";
 import Button from "../Divers/Button";
 import { FaSave } from "react-icons/fa";
 import CheckBox from "../Form/CheckBox";
-import { IRessourceCategorie } from "../../types/RessourceCategorie";
+import { IarticleCategorie } from "../../types/articleCategorie";
 import { post, put } from "../../api/apiClient";
 import { ApiResponse } from "../../api/ApiResponse";
 
 interface CategoryFormProps {
   onSubmit: (success: boolean) => void;
-  ressourceCategorie: IRessourceCategorie;
+  articleCategorie: IarticleCategorie;
 }
 
 const CategoryForm = (props: CategoryFormProps) => {
@@ -17,9 +17,9 @@ const CategoryForm = (props: CategoryFormProps) => {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
-    lib_ressource_categorie:
-      props.ressourceCategorie?.lib_ressource_categorie || "",
-    visible: props.ressourceCategorie?.visible,
+    lib_article_categorie:
+      props.articleCategorie?.lib_article_categorie || "",
+    visible: props.articleCategorie?.visible,
   });
 
   const validateForm = (value: string) => {
@@ -41,7 +41,7 @@ const CategoryForm = (props: CategoryFormProps) => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    if (name === "lib_ressource_categorie") {
+    if (name === "lib_article_categorie") {
       const errorMessage = validateForm(value);
       setError(errorMessage);
     }
@@ -49,7 +49,7 @@ const CategoryForm = (props: CategoryFormProps) => {
 
   const handleSubmit = async () => {
     //Validation des données
-    const errorMessage = validateForm(formData.lib_ressource_categorie);
+    const errorMessage = validateForm(formData.lib_article_categorie);
     if (errorMessage) {
       setError(errorMessage);
       return;
@@ -59,20 +59,20 @@ const CategoryForm = (props: CategoryFormProps) => {
     setError("");
     setLoading(true);
     const payload = {
-      id: props.ressourceCategorie.id,
-      lib_ressource_categorie: formData.lib_ressource_categorie,
+      id: props.articleCategorie.id,
+      lib_article_categorie: formData.lib_article_categorie,
       visible: formData.visible,
     };
 
     let response;
-    if (props.ressourceCategorie.id === 0) {
-      response = await post<typeof payload, ApiResponse<IRessourceCategorie>>(
-        "ressource_categories",
+    if (props.articleCategorie.id === 0) {
+      response = await post<typeof payload, ApiResponse<IarticleCategorie>>(
+        "article_categories",
         payload
       );
     } else {
-      response = await put<typeof payload, ApiResponse<IRessourceCategorie>>(
-        `ressource_categories/${props.ressourceCategorie.id}`,
+      response = await put<typeof payload, ApiResponse<IarticleCategorie>>(
+        `article_categories/${props.articleCategorie.id}`,
         payload
       );
     }
@@ -80,17 +80,17 @@ const CategoryForm = (props: CategoryFormProps) => {
     setLoading(false);
   };
 
-  const isFormInvalid = !!validateForm(formData.lib_ressource_categorie);
+  const isFormInvalid = !!validateForm(formData.lib_article_categorie);
 
   return (
     <>
       {/* Header */}
       <div className="flex items-center justify-between p-4 md:p-5 border-b bg-gray-600rounded-t dark:border-gray-600 border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {props.ressourceCategorie.id && props.ressourceCategorie.id !== 0
+          {props.articleCategorie.id && props.articleCategorie.id !== 0
             ? "Modifier"
             : "Créer"}{" "}
-          catégorie de ressource
+          catégorie de article
         </h3>
       </div>
 
@@ -101,8 +101,8 @@ const CategoryForm = (props: CategoryFormProps) => {
             <FloatingInput
               type="text"
               label="Libellé"
-              value={formData.lib_ressource_categorie}
-              name="lib_ressource_categorie"
+              value={formData.lib_article_categorie}
+              name="lib_article_categorie"
               required={true}
               onChange={handleFormChange}
               error={!!error}

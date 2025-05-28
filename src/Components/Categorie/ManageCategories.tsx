@@ -4,14 +4,14 @@ import CategoriesList from "./CategoriesList";
 import { FaPlus } from "react-icons/fa";
 import Modal from "../Divers/Modal";
 import CategoryForm from "./CategoryForm";
-import { IRessourceCategorie } from "../../types/RessourceCategorie";
+import { IarticleCategorie } from "../../types/articleCategorie";
 import Toast from "../Divers/Toast";
 
 const ManageCategories = () => {
-  const [ressourceCategorie, setRessourceCategorie] =
-    useState<IRessourceCategorie>({
+  const [articleCategorie, setarticleCategorie] =
+    useState<IarticleCategorie>({
       id: 0,
-      lib_ressource_categorie: "",
+      lib_article_categorie: "",
       visible: true,
     });
 
@@ -34,9 +34,9 @@ const ManageCategories = () => {
       <Button
         icon={<FaPlus size={20} />}
         onClick={() => {
-          setRessourceCategorie({
+          setarticleCategorie({
             id: 0,
-            lib_ressource_categorie: "",
+            lib_article_categorie: "",
             visible: true,
           });
           setModalFormVisible(true);
@@ -47,7 +47,7 @@ const ManageCategories = () => {
       </div>
 
       {/* Modal modification */}
-      {modalFormVisible && ressourceCategorie && (
+      {modalFormVisible && articleCategorie && (
         <Modal
           isOpen={modalFormVisible}
           onClose={() => setModalFormVisible(false)}
@@ -55,7 +55,7 @@ const ManageCategories = () => {
           position="center"
         >
           <CategoryForm
-            ressourceCategorie={ressourceCategorie}
+            articleCategorie={articleCategorie}
             onSubmit={(success) => {
               if (success) {
                 setModalFormVisible(false);

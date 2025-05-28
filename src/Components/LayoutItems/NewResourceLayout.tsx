@@ -1,12 +1,12 @@
-import ManageRessources from "../Ressource/ManageRessources.tsx";
+import Managearticles from "../article/Managearticle.tsx";
 
-const NewResourceLayout = () => {
+const NewarticleLayout = () => {
 
     return (
         <>
-            <ManageRessources/>
+            <Managearticles/>
         </>
     );
 };
 
-export default NewResourceLayout;
+export default NewarticleLayout;

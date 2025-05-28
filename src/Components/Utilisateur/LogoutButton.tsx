@@ -33,7 +33,7 @@ const LogoutButton: React.FC = () => {
       }
 
       // Redirection après déconnexion réussie
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (err) {
       console.error("Erreur réseau lors du logout", err);
       localStorage.removeItem("token");

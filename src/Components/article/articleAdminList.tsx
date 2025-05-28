@@ -7,46 +7,46 @@ import SearchInput from "../Divers/SearchBar/SearchInput";
 import Toast from "../Divers/Toast";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import ConfirmModal from "../Divers/ConfirmModal";
-import { IRessource } from "../../types/Ressource";
-import RessourceForm from "./RessourceForm";
+import { Iarticle } from "../../types/article";
+import ArticleForm from "./articleForm";
 import { IUser } from "../../types/User";
 import { IRelationType } from "../../types/RelationType";
-import { IRessourceCategorie } from "../../types/RessourceCategorie";
+import { IarticleCategorie } from "../../types/articleCategorie";
 import SearchSelectBox from "../Divers/SearchBar/SearchSelectBox";
 import { ISelectBoxOption } from "../../types/SelectBoxOption";
 import { FaCheckCircle } from "react-icons/fa";
 import { RxCrossCircled, RxReset } from "react-icons/rx";
 
-interface RessourcesAdminListProps {
-  refreshRessources: boolean;
+interface ArticlesAdminListProps {
+  refresharticles: boolean;
   user: IUser;
 }
 
-const RessourcesAdminList = (props: RessourcesAdminListProps) => {
-  // Liste de toutes les ressources
-  const [allRessources, setRessources] = useState<IRessource[]>([]);
-  const [selectedRessource, setSelectedRessource] = useState<IRessource | null>(
+const ArticlesAdminList = (props: ArticlesAdminListProps) => {
+  // Liste de toutes les articles
+  const [allarticles, setarticles] = useState<Iarticle[]>([]);
+  const [selectedarticle, setSelectedarticle] = useState<Iarticle | null>(
     null
   );
 
-  const getAllRessources = async () => {
-    const response = await get<ApiResponse<IRessource[]>>("ressources");
+  const getAllarticles = async () => {
+    const response = await get<ApiResponse<Iarticle[]>>("articles");
     if (response?.status && response.data) {
-      setRessources(response.data);
+      setarticles(response.data);
     }
   };
 
   //Mise à jour de la liste
   useEffect(() => {
-    getAllRessources();
-  }, [props.refreshRessources]);
+    getAllarticles();
+  }, [props.refresharticles]);
 
   //Récupération de toutes les catégories
-  const [allCategories, setCategories] = useState<IRessourceCategorie[]>([]);
+  const [allCategories, setCategories] = useState<IarticleCategorie[]>([]);
 
   const getAllCategories = async (visible?: boolean) => {
-    const response = await get<ApiResponse<IRessourceCategorie[]>>(
-      "ressource_categories" + "?visible=" + visible
+    const response = await get<ApiResponse<IarticleCategorie[]>>(
+      "article_categories" + "?visible=" + visible
     );
     if (response?.status && response.data) {
       setCategories(response.data);
@@ -77,25 +77,25 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
 // Modal confirmation suppression
   const [modalConfirmVisible, setModalConfirmVisible] = useState(false);
   const handleConfirmation = (confirmed: boolean) => {
-    if (confirmed && selectedRessource) {
-      deleteRessource(selectedRessource.id);
+    if (confirmed && selectedarticle) {
+      deletearticle(selectedarticle.id);
     }
     setModalConfirmVisible(false);
   };
 
-  // Supprimer une ressource
-  const deleteRessource = async (id: number) => {
-    const response = await del<ApiResponse<null>>(`ressources/${id}`);
+  // Supprimer une article
+  const deletearticle = async (id: number) => {
+    const response = await del<ApiResponse<null>>(`articles/${id}`);
     if (response?.status) {
-      getAllRessources();
+      getAllarticles();
     } else {
-      setToastMessage("Erreur lors de la suppression de la ressource");
+      setToastMessage("Erreur lors de la suppression de la article");
     }
   };
   //
 
-  // Filtrer ressource
-  const [searchTitreRessource, setSearchTitreRessource] = useState("");
+  // Filtrer article
+  const [searchTitrearticle, setSearchTitrearticle] = useState("");
   const [searchCategorie, setSearchCategorie] = useState("");
   const [searchRelationType, setSearchRelationType] = useState("");
   const [searchValide, setSearchValide] = useState("0");
@@ -106,8 +106,8 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
     const { name, value } = e.target;
 
     if (name === "search_titre") {
-      setSearchTitreRessource(value);
-    } else if (name === "search_ressource_categorie") {
+      setSearchTitrearticle(value);
+    } else if (name === "search_article_categorie") {
       setSearchCategorie(value);
     } else if (name === "search_relation_type") {
       setSearchRelationType(value);
@@ -116,11 +116,11 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
     }
   };
 
-  const filteredRessources = allRessources.filter(
+  const filteredarticles = allarticles.filter(
     (ress) =>
-      ress.titre.toLowerCase().includes(searchTitreRessource.toLowerCase()) &&
+      ress.titre.toLowerCase().includes(searchTitrearticle.toLowerCase()) &&
       (!searchCategorie ||
-        String(ress.ressource_categorie.id) === searchCategorie) &&
+        String(ress.article_categorie.id) === searchCategorie) &&
       (!searchRelationType ||
         String(ress.relation_type.id) === searchRelationType) &&
       (searchValide === "-1" || Boolean(ress.valide) === (searchValide === "1"))
@@ -129,7 +129,7 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
   const categorieOptions: ISelectBoxOption[] = [
     { label: "Toutes les catégories", value: "0" },
     ...allCategories.map((categorie) => ({
-      label: categorie.lib_ressource_categorie,
+      label: categorie.lib_article_categorie,
       value: String(categorie.id),
     })),
   ];
@@ -149,7 +149,7 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
   ];
 
   const resetFilters = () => {
-    setSearchTitreRessource("");
+    setSearchTitrearticle("");
     setSearchCategorie("");
     setSearchRelationType("");
     setSearchValide("0");
@@ -167,13 +167,13 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
           <SearchInput
             placeholder="Chercher par titre"
             onChange={handleSearchChange}
-            value={searchTitreRessource}
+            value={searchTitrearticle}
             name="search_titre"
           />
           <SearchSelectBox
             onChange={handleSearchChange}
             value={searchCategorie}
-            name="search_ressource_categorie"
+            name="search_article_categorie"
             options={categorieOptions}
           />
           <SearchSelectBox
@@ -197,7 +197,7 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
           </div>
         </div>
 
-        {/* Liste des ressources */}
+        {/* Liste des articles */}
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -223,22 +223,22 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
           </thead>
 
           <tbody>
-            {filteredRessources.map((ressource) => (
+            {filteredarticles.map((article) => (
               <tr
-                key={ressource.id}
+                key={article.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td className="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
-                  {ressource.titre}
+                  {article.titre}
                 </td>
                 <td className="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
-                  {ressource.ressource_categorie.lib_ressource_categorie}
+                  {article.article_categorie.lib_article_categorie}
                 </td>
                 <td className="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
-                  {ressource.relation_type.lib_relation_type}
+                  {article.relation_type.lib_relation_type}
                 </td>
                 <td className="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
-                  {ressource.valide ? (
+                  {article.valide ? (
                     <FaCheckCircle className="text-green-500" />
                   ) : (
                     <RxCrossCircled className="text-red-500" />
@@ -250,8 +250,8 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
                     icon={<MdModeEdit size={25} />}
                     label=""
                     onClick={() => {
-                      if (ressource) {
-                        setSelectedRessource(ressource);
+                      if (article) {
+                        setSelectedarticle(article);
                         setModalFormVisible(true);
                       }
                     }}
@@ -262,8 +262,8 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
                     icon={<MdDelete size={20} />}
                     label=""
                     onClick={() => {
-                      if (ressource) {
-                        setSelectedRessource(ressource);
+                      if (article) {
+                        setSelectedarticle(article);
                         setModalConfirmVisible(true);
                       }
                     }}
@@ -276,19 +276,19 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
       </div>
 
       {/* Modal formulaire modification */}
-      {modalFormVisible && selectedRessource && (
+      {modalFormVisible && selectedarticle && (
         <Modal
           isOpen={modalFormVisible}
           onClose={() => setModalFormVisible(false)}
           dismissable={true}
           position="center"
         >
-          <RessourceForm
-            ressource={selectedRessource}
+          <ArticleForm
+            article={selectedarticle}
             onSubmit={(success) => {
               if (success) {
                 setModalFormVisible(false);
-                getAllRessources();
+                getAllarticles();
               } else {
                 setToastMessage("Erreur lors de l'enregistrement");
               }
@@ -304,7 +304,7 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
       <ConfirmModal
         isOpen={modalConfirmVisible}
         onClose={() => setModalConfirmVisible(false)}
-        message="Êtes-vous sûr de vouloir supprimer cette ressource ?"
+        message="Êtes-vous sûr de vouloir supprimer cette article ?"
         onConfirm={handleConfirmation}
       />
 
@@ -316,4 +316,4 @@ const RessourcesAdminList = (props: RessourcesAdminListProps) => {
   );
 };
 
-export default RessourcesAdminList;
+export default ArticlesAdminList;

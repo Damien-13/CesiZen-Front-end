@@ -1,9 +1,9 @@
 import { IRelationType } from "./RelationType";
-import { IRessourceCategorie } from "./RessourceCategorie";
-import { IRessourceType } from "./RessourceType";
+import { IarticleCategorie } from "./articleCategorie";
+import { IarticleType } from "./articleType";
 import { IUser } from "./User";
 
-export interface IRessource {
+export interface Iarticle {
     id: number;
     titre: string;
     description: string;
@@ -14,7 +14,7 @@ export interface IRessource {
     created_at: string;
 
     user: IUser;
-    ressource_categorie: IRessourceCategorie;
-    ressource_type: IRessourceType;
+    article_categorie: IarticleCategorie;
+    article_type: IarticleType;
     relation_type: IRelationType;
 }

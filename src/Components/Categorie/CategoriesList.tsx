@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { del, get } from "../../api/apiClient";
 import { ApiResponse } from "../../api/ApiResponse";
-import { IRessourceCategorie } from "../../types/RessourceCategorie";
+import { IarticleCategorie } from "../../types/articleCategorie";
 import { FaCheckCircle } from "react-icons/fa";
 import { RxCrossCircled } from "react-icons/rx";
 import Button from "../Divers/Button";
@@ -18,14 +18,14 @@ interface CategoriesListProps {
 
 const CategoriesList = (props: CategoriesListProps) => {
   // Liste des catégories
-  const [allCategories, setCategories] = useState<IRessourceCategorie[]>([]);
+  const [allCategories, setCategories] = useState<IarticleCategorie[]>([]);
 
   const [selectedCategorie, setSelectedCategorie] =
-    useState<IRessourceCategorie | null>(null);
+    useState<IarticleCategorie | null>(null);
 
   const getAllCategories = async () => {
-    const response = await get<ApiResponse<IRessourceCategorie[]>>(
-      "ressource_categories"
+    const response = await get<ApiResponse<IarticleCategorie[]>>(
+      "article_categories"
     );
     if (response?.status && response.data) {
       setCategories(response.data);
@@ -34,7 +34,7 @@ const CategoriesList = (props: CategoriesListProps) => {
 
   // Supprimer une catégorie
   const deleteCategory = async (id: number) => {
-    const response = await del<ApiResponse<null>>(`ressource_categories/${id}`);
+    const response = await del<ApiResponse<null>>(`article_categories/${id}`);
     if (response?.status) {
       getAllCategories();
     } else {
@@ -50,7 +50,7 @@ const CategoriesList = (props: CategoriesListProps) => {
     setSearchLibCategorie(e.target.value);
   };
   const filteredCategories = allCategories.filter((cat) =>
-    cat.lib_ressource_categorie
+    cat.lib_article_categorie
       .toLowerCase()
       .includes(searchLibCategorie.toLowerCase())
   );
@@ -113,7 +113,7 @@ const CategoriesList = (props: CategoriesListProps) => {
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td className="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
-                  {categorie.lib_ressource_categorie}
+                  {categorie.lib_article_categorie}
                 </td>
                 <td className="px-6 py-3">
                   {categorie.visible ? (
@@ -161,7 +161,7 @@ const CategoriesList = (props: CategoriesListProps) => {
           position="center"
         >
           <CategoryForm
-            ressourceCategorie={selectedCategorie}
+            articleCategorie={selectedCategorie}
             onSubmit={(success) => {
               if (success) {
                 setModalFormVisible(false);

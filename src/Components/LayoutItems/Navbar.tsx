@@ -21,7 +21,7 @@ interface AdminChoice {
 // Données
 const adminMenuChoices: AdminChoice[] = [
   { key: "categories", label: "Gestion des catégories" },
-  { key: "ressources", label: "Gestion des ressources" },
+  { key: "articles", label: "Gestion des articles" },
   { key: "users", label: "Gestion des utilisateurs" },
   //{ key: "comments", label: "Gestion des commentaires" },
 ];
