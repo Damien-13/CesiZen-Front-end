@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import articleCard from "../article/articleCard.tsx";
+import ArticleCard from "../article/ArticleCard.tsx";
 import { Iarticle } from "../../types/article.ts";
 import { ApiResponse } from "../../api/ApiResponse.ts";
 import { get } from "../../api/apiClient";
@@ -224,7 +224,7 @@ const FeedContainer = ({newarticle = false}: FeedContainerProps) => {
           {/* Cartes de articles */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredarticles.map((article, index) => (
-              <articleCard
+              <ArticleCard
                 key={article.id || index}
                 index={index}
                 article={article}

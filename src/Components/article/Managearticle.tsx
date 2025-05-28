@@ -3,8 +3,8 @@ import Button from "../Divers/Button";
 import { FaPlus } from "react-icons/fa";
 import Modal from "../Divers/Modal";
 import Toast from "../Divers/Toast";
-import articlesAdminList from "./articlesAdminList";
-import articleForm from "./articleForm";
+import ArticlesAdminList from "./articleAdminList";
+import ArticleForm from "./articleForm";
 import { Iarticle } from "../../types/article";
 import { IarticleCategorie } from "../../types/articleCategorie";
 import { get } from "../../api/apiClient";
@@ -104,7 +104,7 @@ const Managearticles = ({autoShow = false}:ManagearticleProps) => {
           <Button icon={<FaPlus size={20} />} onClick={handleAddClick} />
 
           <div className="mt-4">
-            {user && <articlesAdminList refresharticles={refresh} user={user} />}
+            {user && <ArticlesAdminList refresharticles={refresh} user={user} />}
           </div>
       </div>
       {modalFormVisible && article && (
@@ -114,7 +114,7 @@ const Managearticles = ({autoShow = false}:ManagearticleProps) => {
           dismissable
           position="center"
         >
-          <articleForm
+          <ArticleForm
             article={article}
             onSubmit={(success) => {
               if (success) {

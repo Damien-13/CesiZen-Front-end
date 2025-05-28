@@ -22,7 +22,7 @@ interface CategoryFormProps {
   article: Iarticle;
 }
 
-const articleForm = (props: CategoryFormProps) => {
+const ArticleForm = (props: CategoryFormProps) => {
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
 
@@ -309,4 +309,4 @@ const articleForm = (props: CategoryFormProps) => {
   );
 };
 
-export default articleForm;
+export default ArticleForm;

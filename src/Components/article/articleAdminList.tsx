@@ -8,7 +8,7 @@ import Toast from "../Divers/Toast";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import ConfirmModal from "../Divers/ConfirmModal";
 import { Iarticle } from "../../types/article";
-import articleForm from "./articleForm";
+import ArticleForm from "./articleForm";
 import { IUser } from "../../types/User";
 import { IRelationType } from "../../types/RelationType";
 import { IarticleCategorie } from "../../types/articleCategorie";
@@ -17,12 +17,12 @@ import { ISelectBoxOption } from "../../types/SelectBoxOption";
 import { FaCheckCircle } from "react-icons/fa";
 import { RxCrossCircled, RxReset } from "react-icons/rx";
 
-interface articlesAdminListProps {
+interface ArticlesAdminListProps {
   refresharticles: boolean;
   user: IUser;
 }
 
-const articlesAdminList = (props: articlesAdminListProps) => {
+const ArticlesAdminList = (props: ArticlesAdminListProps) => {
   // Liste de toutes les articles
   const [allarticles, setarticles] = useState<Iarticle[]>([]);
   const [selectedarticle, setSelectedarticle] = useState<Iarticle | null>(
@@ -283,7 +283,7 @@ const articlesAdminList = (props: articlesAdminListProps) => {
           dismissable={true}
           position="center"
         >
-          <articleForm
+          <ArticleForm
             article={selectedarticle}
             onSubmit={(success) => {
               if (success) {
@@ -316,4 +316,4 @@ const articlesAdminList = (props: articlesAdminListProps) => {
   );
 };
 
-export default articlesAdminList;
+export default ArticlesAdminList;

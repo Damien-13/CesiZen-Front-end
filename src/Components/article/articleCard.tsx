@@ -2,13 +2,13 @@ import Button from "../Divers/Button.tsx";
 import { Iarticle } from "../../types/article.ts";
 import { FaReadme } from "react-icons/fa";
 
-interface articleCardProps {
+interface ArticleCardProps {
   index: number;
   article: Iarticle;
   onConsulter: () => void;
 }
 
-const articleCard = ({ article, onConsulter }: articleCardProps) => {
+const ArticleCard = ({ article, onConsulter }: ArticleCardProps) => {
   return (
     <div className="h-[300px] w-full max-w-sm flex flex-col">
       <h2 className="sr-only">Résumé</h2>
@@ -44,4 +44,4 @@ const articleCard = ({ article, onConsulter }: articleCardProps) => {
   );
 };
 
-export default articleCard;
+export default ArticleCard;

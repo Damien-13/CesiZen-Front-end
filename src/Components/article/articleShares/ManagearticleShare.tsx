@@ -4,13 +4,13 @@ import { IUser } from "../../../types/User";
 import AddarticleShare from "./AddarticleShare";
 import articleShareList from "./articleShareList";
 
-interface SharearticleFormProps {
+interface ShareArticleFormProps {
   article: Iarticle;
   user: IUser;
   onSubmit: (success: boolean) => void;
 }
 
-const ManagearticleShare = (props: SharearticleFormProps) => {
+const ManagearticleShare = (props: ShareArticleFormProps) => {
   const [refreshPartages, setRefreshPartages] = useState(false);
 
   const triggerRefresh = () => {
