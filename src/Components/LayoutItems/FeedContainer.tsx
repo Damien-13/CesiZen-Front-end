@@ -216,7 +216,7 @@ const FeedContainer = ({newarticle = false}: FeedContainerProps) => {
                   )
                 }
                 onClick={() => setSortByTitleAsc(!sortByTitleAsc)}
-                color="blue"
+                color="green"
               />
             </div>
           </div>

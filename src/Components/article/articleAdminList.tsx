@@ -261,6 +261,7 @@ const ArticlesAdminList = (props: ArticlesAdminListProps) => {
                   <Button
                     icon={<MdDelete size={20} />}
                     label=""
+                    color="red"
                     onClick={() => {
                       if (article) {
                         setSelectedarticle(article);

@@ -138,6 +138,7 @@ const CategoriesList = (props: CategoriesListProps) => {
                   <Button
                     icon={<MdDelete size={20} />}
                     label=""
+                    color="red"
                     onClick={() => {
                       if (categorie) {
                         setSelectedCategorie(categorie);

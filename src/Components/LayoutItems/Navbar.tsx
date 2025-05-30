@@ -43,7 +43,7 @@ const Navbar: React.FC = ({isAdmin, setCurrentLayout, setAdminOption}) => {
       srOnly: "Accueil",
       icon: (
           <svg
-              className="w-6.5 h-6.5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+              className="w-6.5 h-6.5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -84,7 +84,7 @@ const Navbar: React.FC = ({isAdmin, setCurrentLayout, setAdminOption}) => {
       srOnly: "Profil",
       icon: (
           <svg
-              className="w-7.5 h-7.5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+              className="w-7.5 h-7.5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -102,7 +102,7 @@ const Navbar: React.FC = ({isAdmin, setCurrentLayout, setAdminOption}) => {
       srOnly: "Administration",
       icon: (
           <svg
-              className="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+              className="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -176,7 +176,7 @@ const Navbar: React.FC = ({isAdmin, setCurrentLayout, setAdminOption}) => {
                   <button
                     type="button"
                     onClick={item.onClick}
-                    className="inline-flex items-center justify-center w-12 h-12 font-medium bg-blue-600 rounded-full hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800 transition-colors duration-200 shadow-lg"
+                    className="inline-flex items-center justify-center w-12 h-12 font-medium bg-green-600 rounded-full hover:bg-green-700 focus:ring-4 focus:ring-green-300 focus:outline-none dark:focus:ring-blue-800 transition-colors duration-200 shadow-lg"
                   >
                     {item.icon}
                     <span className="sr-only">{item.srOnly}</span>

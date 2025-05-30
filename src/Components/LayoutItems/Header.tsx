@@ -3,10 +3,10 @@ import logo from '../Icons/logo.png';
 import { useUser } from "../../contexts/AuthContext";
 
 const navLinks = [
-  { label: "Conditions générales d'utilisation", href: "#" },
-  { label: "Mentions légales", href: "#" },
-  { label: "Politique de confidentialité", href: "#" },
-  { label: "Contact", href: "#" },
+  { label: "Conditions générales d'utilisation", href: "/" },
+  { label: "Mentions légales", href: "/" },
+  { label: "Politique de confidentialité", href: "/" },
+  { label: "Contact", href: "/" },
 ];
 
 const Header: React.FC = () => {
@@ -34,7 +34,8 @@ const Header: React.FC = () => {
   }, [menuOpen]);
 
   return (
-    <header className="bg-blue-50 shadow px-4 py-2 flex items-center justify-between mb-5">
+    <header className="bg-gradient-to-br from-green-50 to-yellow-50  shadow px-4 py-2 flex items-center justify-between mb-5">
+
       {/* Logo à gauche */}
       <div className="flex items-center gap-3">
         <img src={logo} alt="Logo du site" className="h-10 w-10" />

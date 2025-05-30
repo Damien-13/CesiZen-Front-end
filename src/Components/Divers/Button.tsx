@@ -37,10 +37,10 @@ const Button = (props: ButtonProps) => {
       disabled={props.disabled}
       className={`
         inline-flex items-center justify-center font-medium rounded-lg text-sm 
-        text-white ${colorClass[props.color ?? "blue"].gradient}
+        text-white ${colorClass[props.color ?? "green"].gradient}
         hover:bg-gradient-to-br 
         focus:ring-4 focus:outline-none ${
-          colorClass[props.color ?? "blue"].focus
+          colorClass[props.color ?? "green"].focus
         }
         disabled:opacity-90 disabled:cursor-not-allowed
         ${hasLabel ? "px-5 py-2.5" : "p-2 w-10 h-10"}
