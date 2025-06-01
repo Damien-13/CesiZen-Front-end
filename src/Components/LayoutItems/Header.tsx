@@ -34,7 +34,7 @@ const Header: React.FC = () => {
   }, [menuOpen]);
 
   return (
-    <header className="bg-gradient-to-br from-green-50 to-yellow-50  shadow px-4 py-2 flex items-center justify-between mb-5">
+    <header className="bg-gradient-to-br from-green-50 to-yellow-50  shadow px-4 py-2 flex items-center justify-between mb-5 rounded-2xl">
 
       {/* Logo à gauche */}
       <div className="flex items-center gap-3">
