@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f1f5f3, #fdf9f1); /* vert très pâle → jaune très pâle */
+  margin: 0;
+}
