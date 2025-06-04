@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import {useUser} from "../../contexts/AuthContext.tsx";
+import {useUser} from "../../contexts/AuthContext.tsx"
+import LungsIcon from "../Icons/icons8-poumon-32.png";
+
 
 // Interfaces
 interface NavItem {
@@ -30,13 +32,28 @@ const Navbar: React.FC = ({isAdmin, setCurrentLayout, setAdminOption}) => {
 
   const [adminOpen, setAdminOpen] = useState(false);
   const adminRef = useRef<HTMLDivElement>(null);
-
+  
+  const onRespiration = () => setCurrentLayout("respiration");
   const onHome = () => setCurrentLayout('home');
   const onAdd = () => setCurrentLayout('new');
   const onProfile = () => setCurrentLayout('profile');
 
   const navItems: NavItem[] = [
-    {
+  {
+    key: "respiration",
+    tooltip: "Exercices",
+    onClick: onRespiration,
+    srOnly: "Exercices de respiration",
+    icon: (
+      <img
+      src={LungsIcon}
+      alt="Respiration"
+      className="w-7 h-7 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-500"
+    />
+  
+    )
+  },
+  {
       key: "home",
       tooltip: "Accueil",
       onClick: onHome,

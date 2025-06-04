@@ -30,6 +30,8 @@ function App() {
                 return isLoggedIn ? <ProfileLayout/> : <AuthPage/>;
             case 'admin':
                 return isLoggedIn && isAdmin ? <AdminLayout adminOption={adminOption} /> : <AuthPage />;
+            case 'respiration':
+                return <ExercicesRespirationPanel />;
             default:
                 break;
         }
@@ -38,7 +40,6 @@ function App() {
   return (
     <>
       <Header />
-      <ExercicesRespirationPanel />
       {getCurrentLayout()}
       <Navbar isAdmin={isAdmin} setCurrentLayout={setCurrentLayout} setAdminOption={setAdminOption}/>
       <Footer />
