@@ -19,7 +19,7 @@ const ArticleDetail = ({ article }: ArticleDetailProps) => {
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md">
-      <h2 className="text-2xl font-bold text-blue-800 bg-blue-100 px-4 py-2 rounded-md inline-block shadow-sm">
+      <h2 className="text-2xl font-bold text-green-800 bg-green-100 px-4 py-2 rounded-md inline-block shadow-sm">
         {article.titre}
       </h2>
 
