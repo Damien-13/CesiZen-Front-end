@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const api = axios.create({
 
-  baseURL: 'http://cesizen-back-end.test/api/', //DAM
+  baseURL: 'http://cesizen-back-end.test/api/', 
+  // Remplacez par l'URL de votre API
   
 
   headers: {
