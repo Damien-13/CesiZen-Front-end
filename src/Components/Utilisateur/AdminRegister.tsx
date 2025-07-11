@@ -30,7 +30,7 @@ const AdminRegister: React.FC<AdminRegisterProps> = ({ onSuccess }) => {
   });
 
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

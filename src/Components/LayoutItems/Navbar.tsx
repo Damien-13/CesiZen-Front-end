@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import {useUser} from "../../contexts/AuthContext.tsx"
 import LungsIcon from "../Icons/icons8-poumon-32.png";
 
 
