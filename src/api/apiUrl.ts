@@ -1,5 +1,5 @@
 
 // Damien
-export const API_BASE_URL = 'http://cesizen-back-end.test/api/';
+export const API_BASE_URL =  'http://localhost:8000/api/';
 
 

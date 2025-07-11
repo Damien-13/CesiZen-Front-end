@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import ArticleCard from "../article/ArticleCard.tsx";
+import ArticleCard from "../article/articleCard.tsx";
 import { Iarticle } from "../../types/article.ts";
 import { ApiResponse } from "../../api/ApiResponse.ts";
 import { get } from "../../api/apiClient";
@@ -14,7 +14,7 @@ import SearchSelectBox from "../Divers/SearchBar/SearchSelectBox.tsx";
 import { ISelectBoxOption } from "../../types/SelectBoxOption.ts";
 import { IRelationType } from "../../types/RelationType.ts";
 import { IarticleCategorie } from "../../types/articleCategorie.ts";
-import ArticleDetail from "../article/ArticleDetail.tsx";
+import ArticleDetail from "../article/articleDetail.tsx";
 import { FaBackward } from "react-icons/fa";
 import Managearticles from "../article/Managearticle.tsx";
 import { useUser } from "../../contexts/AuthContext.tsx";

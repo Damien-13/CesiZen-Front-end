@@ -2,8 +2,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-
-  baseURL: 'http://cesizen-back-end.test/api/', 
+  baseURL: 'http://localhost:8000/api/',
+  //baseURL: 'http://cesizen-back-end.test/api/',
+  //baseURL: 'http://cesizen-back:8000/api/',//URL de production Docker. 
   // Remplacez par l'URL de votre API
   
 
