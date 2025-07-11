@@ -11,12 +11,13 @@ import AuthPage from "./Components/Utilisateur/AuthPage.tsx";
 import {useUser} from "./contexts/AuthContext.tsx";
 import ExercicesRespirationPanel from "./Components/ExerciseRespiration/ExercicesRespirationPanel.tsx";
 
-
 function App() {
+   
+
 
     const { user } = useUser();
     const [currentLayout, setCurrentLayout] = useState('home');
-    const [adminOption, setAdminOption] = useState(null);
+    const [adminOption, setAdminOption] = useState<string | null>(null);
     const isLoggedIn = user !== null;
     const isAdmin = user?.role_id === 1 || user?.role_id=== 2;
 
@@ -42,6 +43,7 @@ function App() {
       <Header />
       {getCurrentLayout()}
       <Navbar isAdmin={isAdmin} setCurrentLayout={setCurrentLayout} setAdminOption={setAdminOption}/>
+      
       <Footer />
     </>
   );

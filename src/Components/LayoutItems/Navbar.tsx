@@ -27,8 +27,14 @@ const adminMenuChoices: AdminChoice[] = [
   { key: "users", label: "Gestion des utilisateurs" },
   //{ key: "comments", label: "Gestion des commentaires" },
 ];
+interface NavbarProps {
+  isAdmin: boolean;
+  setCurrentLayout: React.Dispatch<React.SetStateAction<string>>;
+  setAdminOption: React.Dispatch<React.SetStateAction<null | string>>;
+}
 
-const Navbar: React.FC = ({isAdmin, setCurrentLayout, setAdminOption}) => {
+const Navbar: React.FC<NavbarProps> = ({ isAdmin, setCurrentLayout, setAdminOption }) => {
+
 
   const [adminOpen, setAdminOpen] = useState(false);
   const adminRef = useRef<HTMLDivElement>(null);
