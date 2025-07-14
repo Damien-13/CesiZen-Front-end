@@ -12,5 +12,4 @@ COPY . .
 
 EXPOSE 5173
 
-CMD ["npm", "run", "preview", "--", "--host"]
-
+CMD ["npm", "run", "build", "--", "--host"]

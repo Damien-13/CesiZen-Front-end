@@ -39,5 +39,5 @@ jobs:
       - name: Build Docker image
         run: docker build -t cesizen-front .
 
-      - name: Lancer le conteneur juste pour builder
-        run: docker run --rm cesizen-front
+      - name: Lancer le conteneur Docker
+        run: docker run -d -p 5173:5173 cesizen-front
