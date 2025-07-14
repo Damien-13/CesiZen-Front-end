@@ -28,21 +28,21 @@ jobs:
       - name: Lancer les tests (si définis)
         run: npm run test || echo "Pas de tests définis"
   deploy:
-  needs: test
-  runs-on: self-hosted
+    needs: test
+    runs-on: self-hosted
 
-  steps:
-    - name: Cloner le dépôt
-      uses: actions/checkout@v3
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v3
 
-    - name: Build du projet Vite
-      run: npm install && npm run build
+      - name: Build du projet Vite
+        run: npm install && npm run build
 
-    - name: Build de l’image Docker avec Nginx
-      run: docker build -t cesizen-front .
+      - name: Build de l’image Docker avec Nginx
+        run: docker build -t cesizen-front .
 
-    - name: Supprimer l'ancien conteneur s’il existe
-      run: docker rm -f cesizen-front || true
+      - name: Supprimer l'ancien conteneur s’il existe
+        run: docker rm -f cesizen-front || true
 
-    - name: Lancer le conteneur Docker avec nom fixe
-      run: docker run -d --name cesizen-front -p 8080:80 cesizen-front
+      - name: Lancer le conteneur Docker avec nom fixe
+        run: docker run -d --name cesizen-front -p 8080:80 cesizen-front
