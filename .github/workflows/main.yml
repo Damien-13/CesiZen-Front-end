@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build-front:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,9 @@ jobs:
       - name: Lancer les tests (si définis)
         run: npm run test || echo "Pas de tests définis"
   deploy:
+    needs: test
     runs-on: self-hosted
+
 
     steps:
       - name: Cloner le dépôt
