@@ -27,3 +27,15 @@ jobs:
 
       - name: Lancer les tests (si définis)
         run: npm run test || echo "Pas de tests définis"
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t cesizen-front .
+
+      - name: Lancer le conteneur juste pour builder
+        run: docker run --rm cesizen-front
