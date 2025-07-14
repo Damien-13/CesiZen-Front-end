@@ -1,55 +1,61 @@
-# React + TypeScript + Vite
+# CESIZen
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**CESIZen** est une application web développée dans le cadre de la formation **Concepteur Développeur d’Applications** (CESI). Le projet vise à créer une plateforme numérique pour sensibiliser le grand public à la **santé mentale** et proposer des outils simples pour **gérer le stress au quotidien**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Objectifs
 
-## Expanding the ESLint configuration
+Cette application permet :
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- La **gestion des comptes utilisateurs** (création, connexion, gestion du profil, administration)
+- L’accès à des **articles d'information** sur la santé mentale
+- La pratique guidée d’**exercices de respiration** (cohérence cardiaque)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+L’application respecte les bonnes pratiques en matière de sécurité et de gestion des données personnelles, car elle traite d’un sujet **sensible**.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧱 Stack technique
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-# CesiZen
+- **React** avec **TypeScript**
+- **Vite** pour un développement rapide avec HMR (Hot Module Replacement)
+- **ESLint** préconfiguré pour un code propre et maintenable
+- Architecture **Mobile First** et responsive
+- Organisation du projet suivant le modèle **MVC** (cette application contient uniquement la vue)
+
+---
+
+## 📁 Modules développés
+
+| Module                   | Description |
+|--------------------------|-------------|
+| 👤 Utilisateurs          | Création, connexion, gestion des profils |
+| 📚 Articles d'information | Pages publiques administrables via le back-office |
+| 🧘 Respiration guidée     | Exercices de cohérence cardiaque configurables |
+
+---
+
+## ⚙️ Installation
+
+> ⚠️ **Important :** l’application nécessite le **back-end** pour être pleinement opérationnelle.
+
+Nous vous recommandons fortement d’utiliser **Docker** pour faciliter le déploiement, isoler les environnements et garantir la compatibilité entre les services.
+
+Assurez-vous que :
+
+- Le back-end est installé et accessible (API REST)
+- Les variables d’environnement sont bien configurées (URL de l’API, ports, etc.)
+- Docker (et éventuellement Docker Compose) est installé sur votre machine
+
+---
+
+## ⚠️ Remarque importante
+
+Le projet s'inspire d'une commande fictive du **Ministère de la Santé** dans le cadre d’un exercice pédagogique. Il ne s'agit **pas** d’un projet officiel ni d’un site institutionnel.
+
+---
+
+## ✍️ Auteur
+
+Projet réalisé individuellement dans le cadre de l’**Activité 2** de la formation CDA – CESI.
