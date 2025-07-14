@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  front:
+    image: nginx:alpine
+    container_name: cesizen-front
+    ports:
+      - "8080:80"  # tu accèderas à ton front sur http://localhost:8080
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/usr/share/nginx/html:ro
+    networks:
+      - cesinet
+
+networks:
+  cesinet:
+    external: true  # ou "false" si tu veux que Docker le crée automatiquement
