@@ -1,15 +1,19 @@
-FROM node:18
-
+# Étape 1 : build Vite
+FROM node:18 AS builder
 WORKDIR /app
 
-# Copie d'abord les fichiers de dépendances pour optimiser le cache
+# Installation des dépendances
 COPY package*.json ./
 
 RUN npm install
 
-# Puis copie le reste du projet
+# Copie des fichiers source
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD ["npm", "run", "build"]
+# Étape 2 : serveur NGINX
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

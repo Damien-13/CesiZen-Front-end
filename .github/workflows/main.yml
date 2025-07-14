@@ -38,11 +38,11 @@ jobs:
       - name: Build du projet Vite
         run: npm install && npm run build
 
-      - name: Build de l’image Docker avec Nginx
-        run: docker build -t cesizen-front .
-
-      - name: Supprimer l'ancien conteneur s’il existe
+      - name: Supprimer l’ancien conteneur (s’il existe)
         run: docker rm -f cesizen-front || true
 
-      - name: Lancer le conteneur Docker avec nom fixe
+      - name: Build image
+        run: docker build -t cesizen-front .
+
+      - name: Lancer le conteneur
         run: docker run -d --name cesizen-front -p 8080:80 cesizen-front
