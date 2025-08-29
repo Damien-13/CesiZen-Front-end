@@ -27,6 +27,49 @@ jobs:
 
       - name: Lancer les tests (si définis)
         run: npm run test || echo "Pas de tests définis"
+
+
+jobs:
+  # ton job "test" existe déjà
+
+  security:
+    name: Security checks
+    runs-on: [self-hosted, macos]
+    steps:
+      - uses: actions/checkout@v4
+
+      # Audit des dépendances
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: npm audit (fail on high)
+        run: npm audit --audit-level=high
+
+      # Secrets scan
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: --redact
+
+      # SAST JS/TS (OWASP Top 10)
+      - name: Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/javascript,p/owasp-top-ten
+          auditOn: push
+
+      # Vulns projet (lockfiles / config)
+      - name: Trivy FS scan
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: fs
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+
+
+
   deploy:
     needs: test
     runs-on: self-hosted
