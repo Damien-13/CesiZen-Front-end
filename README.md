@@ -2,7 +2,7 @@
 
 **CESIZen** est une application web développée dans le cadre de la formation **Concepteur Développeur d’Applications** (CESI). Le projet vise à créer une plateforme numérique pour sensibiliser le grand public à la **santé mentale** et proposer des outils simples pour **gérer le stress au quotidien**.
 
-----
+---
 
 ## 🎯 Objectifs
 
