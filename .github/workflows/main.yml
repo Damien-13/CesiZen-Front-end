@@ -29,9 +29,7 @@ jobs:
         run: npm run test || echo "Pas de tests définis"
 
 
-jobs:
-  # ton job "test" existe déjà
-
+  
   security:
     name: Security checks
     runs-on: [self-hosted, macos]
